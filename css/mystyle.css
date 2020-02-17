@@ -1,0 +1,23 @@
+body{
+    background-color:gainsboro;
+}
+nav{
+    padding: 20px 20px;
+    background-color: cornflowerblue;
+    color: black;
+}
+nav ul li a{
+    color: black;
+}
+.container{
+    background-color: white;
+    padding: 20% 10% 20% 10%;
+    height: 100%;
+}
+.login{
+    background-color: gainsboro;
+    padding: 15px;
+}
+input{
+    border: 4px;
+}

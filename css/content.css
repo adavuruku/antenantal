@@ -1,0 +1,29 @@
+body{
+    background-color:gainsboro;
+}
+nav{
+    padding: 20px 20px;
+    background-color: cornflowerblue;
+    color: black;
+}
+nav ul li a{
+    color: black;
+}
+.container{
+    background-color: white;
+    padding: 10% 2% 20% 2%;
+    width: 95%;
+}
+.row{
+    background-color: gainsboro;
+    padding: 5px;
+}
+.content{
+    background-color: white;
+    padding: 10px;
+}
+.pagination li{
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 5px;
+}

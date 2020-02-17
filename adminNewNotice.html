@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Antenantal System</title>
+        <link rel="shortcut icon" href="Server_Pictures_Print/images/image_demo.jpg">
+        <link rel="stylesheet" type="text/css" href="settings/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="settings/css/bootstrap-theme.css" >
+        <script type="text/javascript" src="settings/js/bootstrap.js"></script>
+        <script type="text/javascript" src="settings/js/jquery-2.1.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="settings/css/content.css">
+    </head>
+    <body>
+        <nav role="navigation"  class="navbar  navbar-fixed-top navbar-inverse">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.php" class="navbar-brand" >Antenantal System</a>
+            </div>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse" style="color:yellow;">
+                
+                <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="create_account.php">New Staff Account</a></li>
+                        <li><a href="create_work.php">Create Patient</a></li>
+                        <li><a href="create_work.php">Create Notice</a></li>
+                        <li><a href="all_work_list.php">View All Patients</a></li>
+                        <li><a href="all_work_list.php">View All Staff</a></li>
+                        <li><a href="all_work_list.php">View All Notice</a></li>
+                        <li><a href="authenticate.php">Sign Out</a></li>
+                </ul>
+                
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="content col-xs-12">
+                    <div class="col-xs-12 col-md-8">
+                            
+                            <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
+                                <h3>ADD NEW GENERAL NOTICE</h3>
+                                <hr/>
+                                <div class="form-group">
+                                    <label for="txttitle">Notice Title: </label>
+                                    <textarea rows="11" colunms="12" class="form-control" id="txttitle" name="txttitle" required="true" placeholder="Enter Notice Title"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtdescription">Notice Description: </label>
+                                    <textarea rows="11" colunms="25" class="form-control" id="txtdescription" name="txtdescription" required="true" placeholder="Enter Notice Description"></textarea>
+                                    
+                                    <span class="help-block" id="result4" style="color:brown;text-weight:bold;text-align:center;"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="CREATE NOTICE" class="btn btn-primary btn-md"></input>
+                                </div>
+                            </form>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <nav role="navigation"  class="navbar  navbar-fixed-bottom navbar-inverse">
+                <h5 style="text-align: center;color:white">Copyright &copy; 2020 - Alright Reserved</h5>
+        </nav>
+    </body>
+</html> 

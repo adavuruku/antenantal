@@ -97,7 +97,7 @@
                                 <label for="txtcontact">Contact Address: </label>
                                 <textarea rows="11" colunms="12" class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
                                 
-                                <span class="help-block" id="result4" style="color:brown;text-weight:bold;text-align:center;"></span>
+                                <span class="help-block" id="result4" style="color:brown;text-align:center;"></span>
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="CREATE ACCOUNT" class="btn btn-primary btn-md"></input>

@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span> 
                                     <input type="email" class="form-control" id="txtemail" name="txtemail" required="true" placeholder="Enter Email ID"/>
                                 </div>
-                                <span class="help-block" id="result4" style="color:brown;text-weight:bold;text-align:center;"></span>
+                                <span class="help-block" id="result4" style="color:brown;text-align:center;"></span>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">

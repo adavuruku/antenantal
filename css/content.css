@@ -1,5 +1,7 @@
 body{
     background-color:gainsboro;
+    font-size: 24px;
+    font-weight: bolder;
 }
 nav{
     padding: 20px 20px;
@@ -11,7 +13,7 @@ nav ul li a{
 }
 .container{
     background-color: white;
-    padding: 10% 2% 20% 2%;
+    padding: 10% 2% 5% 2%;
     width: 95%;
 }
 .row{

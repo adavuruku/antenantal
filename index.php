@@ -1,17 +1,36 @@
+
+<?php
+session_start();
+require_once 'connection.php';
+$txtreg =$txtemail=$errPL="";
+if($_SERVER['REQUEST_METHOD'] == "POST")
+{
+	$txtemail =trim($_POST['txtemail']); 
+	$txtreg =trim($_POST['txtreg']);
+	if($txtemail!="" && $txtreg!=""){
+		$stmt_in = $conn->prepare("SELECT * FROM hospitaldocsinfo where docId=? and email=? Limit 1");
+		$stmt_in->execute(array($txtreg,$txtemail));
+		$affected_rows_in = $stmt_in->rowCount();
+		if($affected_rows_in < 1) 
+		{	
+			$errPL="Error: The RegNo or Password does not exist . Contact ICT !!!";
+		}else{
+			//check if application form is filled
+				$row_two = $stmt_in->fetch(PDO::FETCH_ASSOC);
+				$_SESSION['docID'] = $row_two['docId'];
+				$_SESSION['logName'] = $row_two['docname'];
+				header("location: adminHome.php");
+				
+			}
+	}else{
+		$errPL="Error: Empty or Invalid Data's Provided !!!";
+	}									
+}
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Antenantal System</title>
-        <link rel="shortcut icon" href="Server_Pictures_Print/images/image_demo.jpg">
-        <link rel="stylesheet" type="text/css" href="settings/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="settings/css/bootstrap-theme.css" >
-        <script type="text/javascript" src="settings/js/bootstrap.js"></script>
-        <script type="text/javascript" src="settings/js/jquery-2.1.1.js"></script>
-        <link rel="stylesheet" type="text/css" href="settings/css/mystyle.css">
-    </head>
+    <?php include 'header.php'?>
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css">
     <body>
         <nav role="navigation"  class="navbar  navbar-fixed-top navbar-inverse">
             <h2 style="text-align: center;color:white">ANTENANTAL INFORMATION MANAGEMENT SYSTEM</h2>
@@ -19,34 +38,33 @@
         <div class="container">
             <div class="login">
                     <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
-                            <h4 style="margin-bottom:20px;background-color:#CCFF33;padding:10px">Please Login - Staff</h4>
+                            <h4 style="margin-bottom:20px;padding:10px">Please Login - Staff</h4>
                         <hr/>
                             <div class="form-group">
-                                <label for="txtPasswordC2">Hospital ID N<u>o</u> : </label>
+                                <label for="txtreg">Hospital ID N<u>o</u> : </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                    <input type="text" class="form-control" onkeypress="wipeboxeror('4')" id="txtreg" name="txtreg" value="" required="true" placeholder="Enter Matriculation / Registration No"/>
+                                    <input type="text" class="form-control" id="txtreg" name="txtreg" value="" required="true" placeholder="Enter Matriculation / Registration No"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="txtPasswordC2">Email A ID: </label>
+                                <label for="txtemail">Email ADD: </label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span> 
-                                    <input type="password" onkeypress="wipeboxeror('4')" class="form-control" id="txtAppID" name="txtAppID" required="true" placeholder="Enter Application ID"/>
+                                    <input type="email" class="form-control" id="txtemail" name="txtemail" required="true" placeholder="Enter Email ID"/>
                                 </div>
                                 <span class="help-block" id="result4" style="color:brown;text-weight:bold;text-align:center;"></span>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="Continue" class="btn btn-primary btn-md"></input>
+                                    <?php echo  $errPL; ?>
                                 </div>
                         </div>
                     </form>
             </div>
             
         </div>
-        <nav role="navigation"  class="navbar  navbar-fixed-bottom navbar-inverse">
-                <h5 style="text-align: center;color:white">Copyright &copy; 2020 - Alright Reserved</h5>
-        </nav>
+        <?php require_once 'footer.php'?>
     </body>
 </html> 

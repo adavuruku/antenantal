@@ -1,26 +1,34 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Jan 23, 2001 at 03:52 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.7
+-- Host: 127.0.0.1
+-- Generation Time: Feb 19, 2020 at 06:01 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `antenantalServer`
+-- Database: `antenantalserver`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contactInfo`
+-- Table structure for table `contactinfo`
 --
 
-CREATE TABLE `contactInfo` (
+CREATE TABLE `contactinfo` (
   `id` int(11) NOT NULL,
   `HID` varchar(100) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -33,10 +41,10 @@ CREATE TABLE `contactInfo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `DailyTips`
+-- Table structure for table `dailytips`
 --
 
-CREATE TABLE `DailyTips` (
+CREATE TABLE `dailytips` (
   `id` int(11) NOT NULL,
   `day` varchar(20) NOT NULL,
   `description` text NOT NULL,
@@ -47,27 +55,37 @@ CREATE TABLE `DailyTips` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `HospitalDocsInfo`
+-- Table structure for table `hospitaldocsinfo`
 --
 
-CREATE TABLE `HospitalDocsInfo` (
+CREATE TABLE `hospitaldocsinfo` (
   `id` int(11) NOT NULL,
   `docId` varchar(100) NOT NULL,
-  `nurseId` varchar(100) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `doctype` varchar(100) NOT NULL,
+  `docname` varchar(255) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(200) NOT NULL,
   `contactAdd` text NOT NULL,
-  `active` int(5) NOT NULL
+  `active` int(5) NOT NULL,
+  `dateReg` datetime NOT NULL,
+  `gender` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `hospitaldocsinfo`
+--
+
+INSERT INTO `hospitaldocsinfo` (`id`, `docId`, `doctype`, `docname`, `phone`, `email`, `contactAdd`, `active`, `dateReg`, `gender`) VALUES
+(1, 'ABUTH188087', 'Doctor', 'Abdulraheem Sherif Adavuruku', '08164377187', 'aabdulraheemsherif@gmail.com', 'D41 Inike Okene Kogi State', 0, '2020-02-19 10:17:59', 'Male'),
+(2, 'ABUTH243538', 'Nurse', 'Ajinusi Ola Ronke T', '07089543126', 'olaronke@yahoo.com', 'Flat R52 Lagos Street, Lagos State.', 0, '2020-02-19 10:33:13', 'Female');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hospitalNotice`
+-- Table structure for table `hospitalnotice`
 --
 
-CREATE TABLE `hospitalNotice` (
+CREATE TABLE `hospitalnotice` (
   `id` int(11) NOT NULL,
   `noticeDate` datetime NOT NULL,
   `byId` varchar(100) NOT NULL,
@@ -79,10 +97,10 @@ CREATE TABLE `hospitalNotice` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `MonthlyTips`
+-- Table structure for table `monthlytips`
 --
 
-CREATE TABLE `MonthlyTips` (
+CREATE TABLE `monthlytips` (
   `id` int(11) NOT NULL,
   `month` varchar(20) NOT NULL,
   `description` text NOT NULL,
@@ -93,10 +111,10 @@ CREATE TABLE `MonthlyTips` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userDoctorInfo`
+-- Table structure for table `userdoctorinfo`
 --
 
-CREATE TABLE `userDoctorInfo` (
+CREATE TABLE `userdoctorinfo` (
   `id` int(11) NOT NULL,
   `doctorId` varchar(100) NOT NULL,
   `nurseId` varchar(100) NOT NULL,
@@ -106,10 +124,10 @@ CREATE TABLE `userDoctorInfo` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userPregInfo`
+-- Table structure for table `userpreginfo`
 --
 
-CREATE TABLE `userPregInfo` (
+CREATE TABLE `userpreginfo` (
   `id` int(11) NOT NULL,
   `pregDaysCount` int(11) NOT NULL,
   `pregStart` date NOT NULL,
@@ -127,25 +145,34 @@ CREATE TABLE `userPregInfo` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `patientName` varchar(255) NOT NULL,
+  `patientPhone` varchar(20) NOT NULL,
+  `patientEmail` varchar(100) NOT NULL,
   `HID` varchar(50) NOT NULL,
   `contactAddress` text NOT NULL,
   `officeAddress` text NOT NULL,
-  `gender` varchar(10) NOT NULL,
   `illnesDescription` text NOT NULL,
-  `state` varchar(200) NOT NULL,
-  `localgovt` int(255) NOT NULL
+  `patientState` varchar(200) NOT NULL,
+  `patientLocalGovt` varchar(255) NOT NULL,
+  `dateReg` datetime NOT NULL,
+  `createdBy` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `patientName`, `patientPhone`, `patientEmail`, `HID`, `contactAddress`, `officeAddress`, `illnesDescription`, `patientState`, `patientLocalGovt`, `dateReg`, `createdBy`) VALUES
+(2, 'Muhibat O. Yusuf', '08021345678', 'yusufmuhibat@yahoo.com', 'ABUTH25415616', 'Flat 23A Ohio Estate, Area 3 Garki Abuja.', 'Flat 23A Ohio Estate, Area 3 Garki Abuja.', 'Lorem Ipsum Loresita Meta Mata Artum', 'Abuja', 'Abuja Municipal', '2020-02-19 15:21:43', 'ABUTH188087'),
+(1, 'Aja Sophy Onuoya', '08021345678', 'ajahsophy@gmail.com', 'ABUTH42639249', 'Flat 32U Obodo Street, Enugu State', 'Flat 32U Obodo Street, Enugu State', 'Lorem Ipsum Loresita Meta Mata Artum', 'Enugu', 'Enugu-South', '2020-02-19 15:14:40', 'ABUTH188087');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userSchedule`
+-- Table structure for table `userschedule`
 --
 
-CREATE TABLE `userSchedule` (
+CREATE TABLE `userschedule` (
   `id` int(11) NOT NULL,
   `HID` varchar(100) NOT NULL,
   `dateSchedule` datetime NOT NULL,
@@ -157,10 +184,10 @@ CREATE TABLE `userSchedule` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `WeeklyTips`
+-- Table structure for table `weeklytips`
 --
 
-CREATE TABLE `WeeklyTips` (
+CREATE TABLE `weeklytips` (
   `id` int(11) NOT NULL,
   `weekly` varchar(20) NOT NULL,
   `description` text NOT NULL,
@@ -173,45 +200,45 @@ CREATE TABLE `WeeklyTips` (
 --
 
 --
--- Indexes for table `contactInfo`
+-- Indexes for table `contactinfo`
 --
-ALTER TABLE `contactInfo`
+ALTER TABLE `contactinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `DailyTips`
+-- Indexes for table `dailytips`
 --
-ALTER TABLE `DailyTips`
+ALTER TABLE `dailytips`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `HospitalDocsInfo`
+-- Indexes for table `hospitaldocsinfo`
 --
-ALTER TABLE `HospitalDocsInfo`
+ALTER TABLE `hospitaldocsinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hospitalNotice`
+-- Indexes for table `hospitalnotice`
 --
-ALTER TABLE `hospitalNotice`
+ALTER TABLE `hospitalnotice`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `MonthlyTips`
+-- Indexes for table `monthlytips`
 --
-ALTER TABLE `MonthlyTips`
+ALTER TABLE `monthlytips`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `userDoctorInfo`
+-- Indexes for table `userdoctorinfo`
 --
-ALTER TABLE `userDoctorInfo`
+ALTER TABLE `userdoctorinfo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `userPregInfo`
+-- Indexes for table `userpreginfo`
 --
-ALTER TABLE `userPregInfo`
+ALTER TABLE `userpreginfo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -222,15 +249,15 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `userSchedule`
+-- Indexes for table `userschedule`
 --
-ALTER TABLE `userSchedule`
+ALTER TABLE `userschedule`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `WeeklyTips`
+-- Indexes for table `weeklytips`
 --
-ALTER TABLE `WeeklyTips`
+ALTER TABLE `weeklytips`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -238,61 +265,66 @@ ALTER TABLE `WeeklyTips`
 --
 
 --
--- AUTO_INCREMENT for table `contactInfo`
+-- AUTO_INCREMENT for table `contactinfo`
 --
-ALTER TABLE `contactInfo`
+ALTER TABLE `contactinfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `DailyTips`
+-- AUTO_INCREMENT for table `dailytips`
 --
-ALTER TABLE `DailyTips`
+ALTER TABLE `dailytips`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `HospitalDocsInfo`
+-- AUTO_INCREMENT for table `hospitaldocsinfo`
 --
-ALTER TABLE `HospitalDocsInfo`
+ALTER TABLE `hospitaldocsinfo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `hospitalnotice`
+--
+ALTER TABLE `hospitalnotice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `hospitalNotice`
+-- AUTO_INCREMENT for table `monthlytips`
 --
-ALTER TABLE `hospitalNotice`
+ALTER TABLE `monthlytips`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `MonthlyTips`
+-- AUTO_INCREMENT for table `userdoctorinfo`
 --
-ALTER TABLE `MonthlyTips`
+ALTER TABLE `userdoctorinfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `userDoctorInfo`
+-- AUTO_INCREMENT for table `userpreginfo`
 --
-ALTER TABLE `userDoctorInfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `userPregInfo`
---
-ALTER TABLE `userPregInfo`
+ALTER TABLE `userpreginfo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `userschedule`
+--
+ALTER TABLE `userschedule`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `userSchedule`
+-- AUTO_INCREMENT for table `weeklytips`
 --
-ALTER TABLE `userSchedule`
+ALTER TABLE `weeklytips`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
---
--- AUTO_INCREMENT for table `WeeklyTips`
---
-ALTER TABLE `WeeklyTips`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

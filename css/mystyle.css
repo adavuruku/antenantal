@@ -11,13 +11,33 @@ nav ul li a{
 }
 .container{
     background-color: white;
-    padding: 20% 10% 20% 10%;
+    padding: 10% 10% 10% 10%;
     height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content:center;
 }
 .login{
-    background-color: gainsboro;
-    padding: 15px;
+    background-color: white;
+    width: 50%;
+    border-radius: 10px;
+    padding: 1px;
 }
-input{
-    border: 4px;
+input[type=text], input[type=email], input[type=submit]{
+    border: none;
+    padding: 25px;
+    font-size: 25px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 5%;
+    width:100%;
+}
+form{
+    background-color: gainsboro;
+    font-size: x-large;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
 }

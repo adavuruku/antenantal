@@ -62,6 +62,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
 <?php include 'header.php'?>
     <link rel="stylesheet" type="text/css" href="css/content.css">
     <script type="text/javascript" src="js/state_change_localgov.js"></script>
+    <link rel="stylesheet" type="text/css" href="plugins/css/select2.css"/>
+    <script type="text/javascript" src="plugins/js/select2.js"></script>
+    <script type="text/javascript" src="plugins/js/select2.min.js"></script>
     <body>
     <?php include 'adminTopNav.php'?>
         <div class="container">
@@ -87,16 +90,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                         </div>
                         <div class="form-group">
                             <label for="txtofficeadd">Pregnancy State Description : </label>
-                            <textarea class="form-control" rows="8" id="txtpregdescription" name="txtpregdescription" required="true" placeholder="Enter Current State Of Pregnancy - Date Started - The Child State And Others Neccessary information About The Pregnant Woman"><?php echo $txtpregdescription; ?></textarea>
+                            <textarea class="form-control" rows="8" style="padding: 15px;font-size: 24px;width: 100%;" id="txtpregdescription" name="txtpregdescription" required="true" placeholder="Enter Current State Of Pregnancy - Date Started - The Child State And Others Neccessary information About The Pregnant Woman"><?php echo $txtpregdescription; ?></textarea>
                         </div>
-                        <div class="form-group">
-                                <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="CREATE ACOUNT" class="btn btn-primary btn-md"></input>
-                        </div>
+                        
                     </div>
                     <div class="col-xs-12 col-md-6">
                             <div class="form-group">
                                     <label for="cmbstate"> State: </label>
-                                    <select class="form-control" id="cmbstate" name="cmbstate" onchange="stateComboChange();">
+                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" id="cmbstate" name="cmbstate" onchange="stateComboChange();">
                                         
                                         <option value="Abuja" title="Abuja">Abuja</option>
                                         <option value="Abia" title="Abia">Abia</option>
@@ -139,24 +140,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                                 </div>
                                 <div class="form-group">
                                     <label for="cmblgov"> Local Government: </label>
-                                    <select class="form-control" id="cmblgov" name="cmblgov">
+                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" id="cmblgov" name="cmblgov">
                                     </select>
                                 </div>
                         <div class="form-group">
                             <label for="txtcontact">Contact Address: </label>
-                            <textarea rows="6" colunms="12" class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
+                            <textarea rows="6" colunms="12" class="form-control" style="padding: 30px;font-size: 24px;width: 100%;" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="samedetails"></label>
                             <label class="checkbox-inline">
-                                    <input type="checkbox" id="samedetails"  onclick="marksame();"> Click here if Contact and Office Address is thesame.
+                                    <input type="checkbox" style="padding: 5px;font-size: 24px;" id="samedetails"  onclick="marksame();"> Click here if Contact and Office Address is thesame.
                             </label>
                         </div>
                         <div class="form-group">
                             <label for="txtofficeadd">Office Address : </label>
-                            <textarea class="form-control" rows="6" id="txtofficeadd" name="txtofficeadd" required="true" placeholder="Enter Office Address"></textarea>
+                            <textarea class="form-control" rows="6" style="padding: 30px;font-size: 24px;width: 100%;" id="txtofficeadd" name="txtofficeadd" required="true" placeholder="Enter Office Address"></textarea>
                         </div>
-                        
+                        <div class="form-group">
+                                <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:20px 20px 20px 20px" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
+                        </div>
                     </div>
                 </form>
                 </div>

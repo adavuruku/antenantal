@@ -21,6 +21,65 @@
     }
 			
 }
+// alert("combo3.value");
+function schoolComboChange()
+    {
+        var combo3 = byId('faculty');
+        var combo4 = byId('department');
+	//   alert(combo3.value);
+
+        emptydeptCombo(combo4);
+        switch(combo3.value)
+        { 
+            case 'Select Faculty':  addDeptOption(combo4,  'Select Department', 'Select Department');
+                        break;
+            case 'Bussiness Studies':  addDeptOption(combo4, 'Accountancy', 'Accountancy');
+                        addDeptOption(combo4, 'Bussiness Studies', 'Bussiness Studies');
+                        addDeptOption(combo4, 'Marketing', 'Marketing');
+                        addDeptOption(combo4, 'Office Tech and Mgment', 'Office Tech and Mgment');
+						addDeptOption(combo4,'Library Management', 'Library Management');
+                        break;
+			case 'Agriculture':  addDeptOption(combo4, 'Agricultual Science', 'Agricultual Science');
+                        addDeptOption(combo4, 'Botany', 'Botany');
+                        break;
+            case 'Science':  addDeptOption(combo4, 'Computer Science', 'Computer Science');
+                        addDeptOption(combo4, 'Mathematics', 'Mathematics');
+                        addDeptOption(combo4, 'Industrial Chemistry', 'Industrial Chemistry');
+                        addDeptOption(combo4, 'Microbiology', 'Microbiology');
+                        addDeptOption(combo4, 'Physics', 'Physics');
+                        addDeptOption(combo4, 'Zoology', 'Zoology');
+                        
+                        break;
+            case 'Engineering':  addDeptOption(combo4, 'Civil Engineering', 'Civil Engineering');
+                        addDeptOption(combo4, 'Elect/Elect Engineering', 'Elect/Elect Engineering');
+                        addDeptOption(combo4, 'Mechanical Engineering', 'Mechanical Engineering');
+                        addDeptOption(combo4, 'Metallurgical Engineering', 'Metallurgical Engineering');
+                        addDeptOption(combo4, 'Agricultural Engineering', 'Agricultural Engineering');
+						addDeptOption(combo4, 'Computer Engineering', 'Computer Engineering');
+                        break;
+            case 'Environmental Studies':  addDeptOption(combo4, 'Architectural Technology', 'Architectural Technology');
+                        addDeptOption(combo4,'Building Technology', 'Building Technology');
+                        addDeptOption(combo4, 'Estate Management', 'Estate Management');
+                        addDeptOption(combo4, 'Surveying and Geo-Informatics', 'Surveying and Geo-Informatics');
+                        addDeptOption(combo4, 'Quantity Surveying', 'Quantity Surveying');
+                        addDeptOption(combo4, 'Urban and Regional Planning', 'Urban and Regional Planning');
+                        break;
+        }
+        //cityComboChange();
+    }
+    function emptydeptCombo(e)
+    {
+        e.innerHTML = '';
+    }
+ 
+    function addDeptOption(combo, val, txt)
+    {
+        var option = document.createElement('option');
+        option.value = val;
+        option.title = txt;
+        option.appendChild(document.createTextNode(txt));
+        combo.appendChild(option);
+    }
  
     function stateComboChange()
     {

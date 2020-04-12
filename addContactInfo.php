@@ -1,24 +1,41 @@
 <?php
     session_start();
+   $notice_msg=$hospitalId = $appid ="";
     require_once 'connection.php';
-    if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser'] == ""){
-        header("location: ?out=out");
+    if (!isset($_GET['hospitalid']) || $_GET['hospitalid'] == ""){
+        if($_SERVER['REQUEST_METHOD'] != "POST"){
+            header("location: ?out=out");
+        }
+        
+    }else{
+        $stmt_in = $conn->prepare("SELECT * FROM users where HID = ? limit 1 ");
+        $stmt_in->execute(array($_GET['hospitalid']));
+        $affected_rows_in = $stmt_in->rowCount();
+        if($affected_rows_in < 1){
+            header("location: ?out=out");
+        }
+        $hospitalId = $_GET['hospitalid'];
     }
-    $stmt_in = $conn->prepare("SELECT * FROM users where HID = ? limit 1 ");
-    $stmt_in->execute(array($_SESSION['currentUser']));
-    $affected_rows_in = $stmt_in->rowCount();
-    if($affected_rows_in < 1){
-        header("location: ?out=out");
-    }
+    
+
+    
+
     if (isset($_GET['delete']) && isset($_GET['docid'])){
         $stmt_iny = $conn->prepare("DELETE FROM contactinfo where id=? limit 1");
         $stmt_iny->execute(array($_GET['docid']));
+
+        $errPL = "Success: Recoord Deleted!!";
+        $notice_msg='<div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                        &times;
+                    </button>'.$errPL.' </div>';
     }
     if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
 		$txtphone=trim($_POST['txtphone']);
         $txtname=trim($_POST['txtname']);$txttype=trim($_POST['txttype']);
         $txtemail=trim($_POST['txtemail']);$txtcontact=trim($_POST['txtcontact']);
-               
+        $hospitalId = $_POST['hospitalid'];
         if( $txtphone=="" || $txtname=="" || $txtcontact=="" ||  $txtemail=="" || $txttype=="")
             {
                 $err = $errPL = "Unable to Save and Preview Your Application.. Please Verify Your Entries to Ensure they are all Provided !!";
@@ -30,7 +47,7 @@
             }else{
                     
                     $sth = $conn->prepare("REPLACE INTO contactinfo (HID, contactname, relationship, phone,email,officeAddress) VALUES (?,?,?,?,?,?)");
-                    $sth->bindValue (1, $_SESSION['currentUser']);
+                    $sth->bindValue (1, $hospitalId);
                     $sth->bindValue (2, $txtname);
                     $sth->bindValue (3, $txttype);
                     $sth->bindValue (4, $txtphone);
@@ -75,8 +92,10 @@
                             <?php require_once 'nav_left_staff.php'?>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <h3 style="margin-bottom:20px;font-weight:bolder">PATIENT ACCOUNT HOME - CONTACT INFORMATION.</h3>
-                            <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
+                            <h5 style="margin-bottom:20px;font-weight:bolder">PATIENT ACCOUNT HOME - CONTACT INFORMATION.</h5>
+                             <?php echo $notice_msg;?>
+                            <form role="form"  name="reg_form"  id="form" class="form-vertical" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="hospitalid" value="<?php echo $hospitalId; ?>" />
                                 <div class="form-group">
                                     <label for="txtname">Full Name: </label>
                                     <input type="text" class="form-control" id="txtname" name="txtname" value="" required="true" placeholder="First Name Middle Name Last Name"/>
@@ -91,7 +110,7 @@
                                  </div>
                                  <div class="form-group">
                                     <label for="txttype"> Relationship : </label>
-                                    <select class="form-control" style="padding: 5px;font-size: 24px;width: 100%;" name="txttype">
+                                    <select class="form-control js-example-basic-single" name="txttype">
                                         <option value="Husban">Husband</option>
                                         <option value="Father">Father</option>
                                         <option value="Mother">Mother</option>
@@ -106,25 +125,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="txtcontact">Contact Address: </label>
-                                    <textarea rows="2" colunms="12" style="padding: 30px;font-size: 24px;width: 100%;" class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
+                                    <textarea rows="2" colunms="12"  class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:20px 20px 20px 20px" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
+                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:10px 10px 10px 10px" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
                                 </div>
                             </form>
                             
                         </div>
                         <div class="col-xs-12">
-
+                        <h5 style="margin-bottom:20px;font-weight:bolder; text-align:center">CONTACT INFORMATION LIST.</h5>
                             <?php
                                 $stmt_in = $conn->prepare("SELECT * FROM contactinfo where HID = ? ORDER BY id DESC");
-                                $stmt_in->execute(array($_SESSION['currentUser']));
+                                $stmt_in->execute(array($hospitalId));
                                 $affected_rows_in = $stmt_in->rowCount();
                                 if($affected_rows_in >= 1)
                                 {
                             ?>
                                     <table class="table table-responsive table-stripped">
-                                        <thead style="background-color:grey">
+                                    <thead style="background-color:grey; color:white">
                                             <tr >
                                                 <td>#</td>
                                                 <td>Name</td>
@@ -147,7 +166,7 @@
                                             <td>'.$row_two_in['phone'].' / '.$row_two_in['email'].'</td>
                                             <td>'.$row_two_in['relationship'].'</td>
                                             <td>'.$row_two_in['officeAddress'].'</td>
-                                            <td><a class="btn btn-danger btn-lg"  href="?delete=delete&docid='.$row_two_in['id'].'" ><i class="glyphicon glyphicon-remove"></i></td>
+                                            <td><a class="btn btn-danger btn-sm"  href="?delete=delete&docid='.$row_two_in['id'].'&hospitalid='.$hospitalId.'" ><i class="glyphicon glyphicon-remove"></i></td>
                                         </tr>
                                     ';
                                     }

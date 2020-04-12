@@ -1,25 +1,41 @@
 <?php
     session_start();
+    $notice_msg=$hospitalId = $appid ="";
     require_once 'connection.php';
-    if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser'] == ""){
-        header("location: ?out=out");
+    if (!isset($_GET['hospitalid']) || $_GET['hospitalid'] == ""){
+        if($_SERVER['REQUEST_METHOD'] != "POST"){
+            header("location: ?out=out");
+        }
+        
+    }else{
+        $stmt_in = $conn->prepare("SELECT * FROM users where HID = ? limit 1 ");
+        $stmt_in->execute(array($_GET['hospitalid']));
+        $affected_rows_in = $stmt_in->rowCount();
+        if($affected_rows_in < 1){
+            header("location: ?out=out");
+        }
+        $hospitalId = $_GET['hospitalid'];
     }
-    $stmt_in = $conn->prepare("SELECT * FROM users where HID = ? limit 1 ");
-    $stmt_in->execute(array($_SESSION['currentUser']));
-    $affected_rows_in = $stmt_in->rowCount();
-    if($affected_rows_in < 1){
-        header("location: ?out=out");
-    }
+
     if (isset($_GET['delete']) && isset($_GET['docid'])){
-        $stmt_iny = $conn->prepare("DELETE FROM contactinfo where id=? limit 1");
+        $stmt_iny = $conn->prepare("DELETE FROM userschedule where id=? limit 1");
         $stmt_iny->execute(array($_GET['docid']));
+        $errPL = "Success: Recoord Deleted!!";
+        $notice_msg='<div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                        &times;
+                    </button>'.$errPL.' </div>';
+
     }
     if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
            
 		$txttime=trim($_POST['txttime']);
         $txtdate=trim($_POST['txtdate']);$txtwith=trim($_POST['txtwith']);
         $txtpurpose=trim($_POST['txtpurpose']);
-               
+        
+        $hospitalId = $_POST['hospitalid'];
+
         if( $txtpurpose=="" || $txtdate=="" || $txtwith=="" ||  $txttime=="")
             {
                 $err = $errPL = "Unable to Save and Preview Your Application.. Please Verify Your Entries to Ensure they are all Provided !!";
@@ -31,12 +47,12 @@
             }else{
                     
                     $sth = $conn->prepare("REPLACE INTO userschedule (HID, dateSchedule, timeSchedule, purpose,docid,byId,valid) VALUES (?,?,?,?,?,?,?)");
-                    $sth->bindValue (1, $_SESSION['currentUser']);
+                    $sth->bindValue (1, $hospitalId);
                     $sth->bindValue (2, $txtdate);
                     $sth->bindValue (3, $txttime);
                     $sth->bindValue (4, $txtpurpose);
                     $sth->bindValue (5, $txtwith);
-                    $sth->bindValue (6, $_SESSION['currentUser']);
+                    $sth->bindValue (6, $_SESSION['docID']);
                     $sth->bindValue (7, "0");
                     if($sth->execute()){
                         $err = $errPL = "Success: New Appointment Information Created and Saved Successfully!!";
@@ -80,31 +96,33 @@
                             <?php require_once 'nav_left_staff.php'?>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <h3 style="margin-bottom:20px;font-weight:bolder">PATIENT ACCOUNT HOME - CREATE APPOINTMENT.</h3>
-                            <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
+                            <h4 style="margin-bottom:20px;">PATIENT ACCOUNT HOME - CREATE APPOINTMENT.</h4>
+                            <?php echo $notice_msg;?>
+                            <form role="form"  name="reg_form"  id="form" class="form-vertical" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="hospitalid" value="<?php echo $hospitalId; ?>" />
                                 <div class="form-group">
                                     <div class="col-xs-6">
                                         <label for="txtname">Appointment Date: </label>
                                         <div class="input-group date" data-provide="datepicker">
-                                            <input type="text" class="form-control" id="txtdate" name="txtdate" value="" required="true" placeholder="HH:MM"/>
+                                            <input type="text" class="form-control" id="txtdate" name="txtdate" value="" required="true" placeholder="YYYY/MM/DD"/>
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label for="txtphone">Appointment Time: </label>
-                                            <input type="time" style="padding: 30px;font-size: 24px;width: 100%;" class="form-control" id="txttime" name="txttime" required="true" placeholder="HH:MM:SS PM/AM"/>
+                                            <input type="time" class="form-control" id="txttime" name="txttime" required="true" placeholder="HH:MM PM/AM"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="txttype"> Appointment With : </label>
-                                    <select class="form-control js-example-basic-single"  style="padding: 5px;font-size: 24px;width: 100%;" id="txtwith" name="txtwith">
+                                    <select class="form-control js-example-basic-single"   id="txtwith" name="txtwith">
                                         <?php
                                             $stmt_in = $conn->prepare("SELECT * FROM userdoctorinfo INNER JOIN hospitaldocsinfo
                                             ON userdoctorinfo.docid = hospitaldocsinfo.docId where userdoctorinfo.HID = ? ORDER BY userdoctorinfo.id DESC ");
                                             
-                                            $stmt_in->execute(array($_SESSION['currentUser']));
+                                            $stmt_in->execute(array($hospitalId));
                                             $affected_rows_in = $stmt_in->rowCount();
                                             if($affected_rows_in >= 1)
                                             {
@@ -118,32 +136,32 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="txtpurpose">Purpose: </label>
-                                    <textarea rows="2" colunms="12" style="padding: 30px;font-size: 24px;width: 100%;" class="form-control" id="txtpurpose" name="txtpurpose" required="true" placeholder="Enter The Purpose Of The Appointment"></textarea>
+                                    <textarea rows="2" colunms="12"  class="form-control" id="txtpurpose" name="txtpurpose" required="true" placeholder="Enter The Purpose Of The Appointment"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:20px 20px 20px 20px" value="CREATE APPOINTMENT" class="btn btn-primary btn-lg"></input>
+                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:10px 10px 10px 10px" value="CREATE APPOINTMENT" class="btn btn-primary btn-lg"></input>
                                 </div>
                             </form>
                             
                         </div>
                         <div class="col-xs-12">
-
+                        <h5 style="margin-bottom:20px;font-weight:bolder; text-align:center">PENDING APPOINTMENT LIST.</h5>
                             <?php
-                                $stmt_in = $conn->prepare("SELECT * FROM userschedule INNER JOIN hospitaldocsinfo 
-                                ON userschedule.docid = hospitaldocsinfo.docId where userschedule.HID = ? ORDER BY userschedule.id DESC");
-                                $stmt_in->execute(array($_SESSION['currentUser']));
+                                $stmt_in = $conn->prepare("SELECT *, userschedule.id as recid FROM userschedule INNER JOIN hospitaldocsinfo 
+                                ON userschedule.docid = hospitaldocsinfo.docId where userschedule.HID = ? and userschedule.valid = ?  ORDER BY userschedule.id DESC");
+                                $stmt_in->execute(array($hospitalId,"0"));
                                 $affected_rows_in = $stmt_in->rowCount();
                                 if($affected_rows_in >= 1)
                                 {
                             ?>
                                     <table class="table table-responsive table-stripped">
-                                        <thead style="background-color:grey">
+                                    <thead style="background-color:grey; color:white">
                                             <tr >
                                                 <td>#</td>
                                                 <td>Appointment Date / Time</td>
                                                 <td>Purpose</td>
                                                 <td>With</td>
-                                                <td>Action</td>
+                                                <td colspan="2">Action</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -162,7 +180,8 @@
                                             <td>'.$date_two.' / '.$time_two.'</td>
                                             <td>'.$row_two_in['purpose'].'</td>
                                             <td>'.$row_two_in['docname'].'</td>
-                                            <td><a class="btn btn-danger btn-lg"  href="?delete=delete&docid='.$row_two_in['id'].'" ><i class="glyphicon glyphicon-remove"></i></td>
+                                            <td><a class="btn btn-danger btn-sm"  href="?delete=delete&docid='.$row_two_in['recid'].'&hospitalid='.$hospitalId.'" ><i class="glyphicon glyphicon-remove"></i></td>
+                                            <td><a class="btn btn-primary btn-sm" href="appointmentUpdate.php?appid='.$row_two_in['recid'].'&hospitalid='.$hospitalId.'"><i class="glyphicon glyphicon-open"></i></td>
                                         </tr>
                                     ';
                                     }

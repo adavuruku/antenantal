@@ -32,7 +32,7 @@
             </div>
         </nav>
 
-        <div style="font-family:due;color:brown;padding-bottom:5px;padding-top:5px;margin-top:20px;margin-bottom:0px; background-color:beige" class="jumbotron">
-            <h1 style="font-family:due;color:brown;padding:20px;padding-bottom:5px">AnteNantal Management System </h1>
+        <div style="font-family:due;color:brown;padding-bottom:5px;padding-top:5px;margin-bottom:0px; background-color:beige" class="jumbotron">
+            <h1 style="font-family:due;color:brown;padding:20px;padding-bottom:5px">Antenatal Management System </h1>
             <p style="font-family:due;color:blue;padding-left:20px">Welcome - <?php echo $_SESSION['logName'];?> - To Administartive Home!!! </p>
         </div>

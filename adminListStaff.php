@@ -15,7 +15,7 @@
         $affected_rows_ina = $stmt_ina->rowCount();
         $current_page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
         $total_count = $affected_rows_ina;
-        $per_page = 1;//26
+        $per_page = 20;//26
         $total_pages = ceil($total_count/$per_page);
         $offset = ($current_page - 1) * $per_page;
         $previous_page = $current_page - 1;	
@@ -38,20 +38,20 @@
         <div class="container">
             <div class="login">
                 <div class="content">
-                    <h3 style="margin-bottom:20px;font-weight:bolder">LIST OF ALL STAFF</h3>
+                    <h4 style="margin-bottom:20px;font-weight:bolder">LIST OF ALL STAFF</h4>
                     <form role="form" class="form-horizontal" action="" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <div class="col-xs-6">
                                     <input type="text" value="<?php echo $txtSearch ?>" name="txtSearch" placeholder="Enter Hospital ID / Part Or Full Name / Phone / Email To Search" class="form-control">
                             </div>
-                            <div class="col-xs-6">
-                                <input class="btn btn-primary"  style="width:10%;margin-bottom:10px;padding:20px 20px 20px 20px;" name="search" type="submit" Value="Search"></input>
+                            <div class="col-xs-2">
+                                <input class="btn btn-primary"  name="search" type="submit" Value="Search"></input>
                             </div>
                         </div>
                     </form>
                     <hr/>
                     <table class="table table-responsive table-stripped">
-                        <thead style="background-color:grey">
+                        <thead style="background-color:grey; color:white">
                             <tr >
                                 <td>#</td>
                                 <td>Hospital ID</td>
@@ -78,7 +78,7 @@
                                             <td>'.$row_two_in['phone'].' / '.$row_two_in['email'].'</td>
                                             <td>'.$row_two_in['doctype'].'</td>
                                             <td>'.$row_two_in['contactAdd'].'</td>
-                                            <td><a class="btn btn-danger" href="" ><i class="glyphicon glyphicon-remove"></i></td>
+                                            <td><a class="btn btn-danger btn-sm" href="" ><i class="glyphicon glyphicon-remove"></i></td>
                                         </tr>
                                        ';
                                     }

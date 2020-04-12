@@ -19,7 +19,6 @@ nav ul li a{
 }
 .login{
     background-color: white;
-    width: 50%;
     border-radius: 10px;
     padding: 1px;
 }
@@ -30,7 +29,7 @@ input[type=text], input[type=email], input[type=submit]{
     width: 100%;
 }
 
-.form-group {
+.input-group {
     margin-bottom: 5%;
     width:100%;
 }

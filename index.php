@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     <body>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#myModal").modal('show');		
+            // $("#myModal").modal('show');		
         });
     </script>
 
@@ -73,20 +73,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                                 <label for="txtreg">Hospital ID N<u>o</u> : </label>
                                 <div class="input-group">
                                    
-                                    <input type="text" class="form-control" id="txtreg" name="txtreg" value="" required="true" placeholder="Enter Matriculation / Registration No"/>
+                                    <input type="text" class="form-control" id="txtreg" name="txtreg" value="" required="true" placeholder="Enter Hospital ID No"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="txtemail">Email ADD: </label>
                                 <div class="input-group">
-                                    
                                     <input type="email" class="form-control" id="txtemail" name="txtemail" required="true" placeholder="Enter Email ID"/>
                                 </div>
                                 <span class="help-block" id="result4" style="color:brown;text-align:center;"></span>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="Continue" class="btn btn-primary btn-md"></input>
+                                    <input type="submit" name="proceed" style="margin-bottom:10px;padding:5px 20px 5px 20px" value="Continue" class="btn btn-primary btn-md"/>
                                     <?php echo  $errPL; ?>
                                 </div>
                         </div>

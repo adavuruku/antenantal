@@ -74,14 +74,14 @@
                             </div>
                             <div class="form-group"> 
                                     <label for="txtgender"> Gender: </label>
-                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" name="txtgender">
+                                    <select class="form-control js-example-basic-single"  name="txtgender">
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="txttype"> Type : </label>
-                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" name="txttype">
+                                    <select class="form-control js-example-basic-single" name="txttype">
                                         <option value="Doctor">Doctor</option>
                                         <option value="Nurse">Nurse</option>
                                     </select>
@@ -98,12 +98,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="txtcontact">Contact Address: </label>
-                                <textarea rows="11" colunms="12" style="padding: 30px;font-size: 24px;width: 100%;" class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
+                                <textarea rows="11" colunms="12"  class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
                                 
                                 <span class="help-block" id="result4" style="color:brown;text-align:center;"></span>
                             </div>
                             <div class="form-group">
-                                <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:20px 20px 20px 20px" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
+                                <input type="submit" name="proceed"  style="width:100%" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
                             </div>
                         </form>
                     </div>

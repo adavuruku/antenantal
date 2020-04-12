@@ -45,13 +45,13 @@
                                 <input type="text" value="<?php echo $txtSearch ?>" name="txtSearch" placeholder="Enter Hospital ID / Part Or Full Name / Phone / Email To Search" class="form-control">
                             </div>
                             <div class="col-xs-6">
-                                <input class="btn btn-primary" style="width:10%;margin-bottom:10px;padding:20px 20px 20px 20px;" name="search" type="submit" Value="Search"></input>
+                                <input class="btn btn-primary" style="width:10%;margin-bottom:10px;padding:5px 5px 5px 5px;" name="search" type="submit" Value="Search"></input>
                             </div>
                         </div>
                     </form>
                     <hr/>
                     <table class="table table-responsive table-stripped">
-                        <thead style="background-color:grey">
+                    <thead style="background-color:grey; color:white">
 
                             <tr >
                                 <td>#</td>

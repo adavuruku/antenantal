@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                 <div class="content col-xs-12">
                     <form role="form"  name="reg_form"  id="form" class="form-vertical" action="" enctype="multipart/form-data" method="POST">
                     <div class="col-xs-12 col-md-6">
-                            <h3>ADD NEW PATIENT (PREGNANCY INFORMATION)</h3>
+                            <h4>ADD NEW PATIENT (PREGNANCY INFORMATION)</h4>
                             <?php echo  $notice_msg;?>
                             <hr/>
                         <div class="form-group">
@@ -90,14 +90,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                         </div>
                         <div class="form-group">
                             <label for="txtofficeadd">Pregnancy State Description : </label>
-                            <textarea class="form-control" rows="8" style="padding: 15px;font-size: 24px;width: 100%;" id="txtpregdescription" name="txtpregdescription" required="true" placeholder="Enter Current State Of Pregnancy - Date Started - The Child State And Others Neccessary information About The Pregnant Woman"><?php echo $txtpregdescription; ?></textarea>
+                            <textarea class="form-control" rows="8"  id="txtpregdescription" name="txtpregdescription" required="true" placeholder="Enter Current State Of Pregnancy - Date Started - The Child State And Others Neccessary information About The Pregnant Woman"><?php echo $txtpregdescription; ?></textarea>
                         </div>
                         
                     </div>
                     <div class="col-xs-12 col-md-6">
                             <div class="form-group">
                                     <label for="cmbstate"> State: </label>
-                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" id="cmbstate" name="cmbstate" onchange="stateComboChange();">
+                                    <select class="form-control js-example-basic-single"  id="cmbstate" name="cmbstate" onchange="stateComboChange();">
                                         
                                         <option value="Abuja" title="Abuja">Abuja</option>
                                         <option value="Abia" title="Abia">Abia</option>
@@ -140,12 +140,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                                 </div>
                                 <div class="form-group">
                                     <label for="cmblgov"> Local Government: </label>
-                                    <select class="form-control js-example-basic-single" style="padding: 15px; height:60px; font-size: 24px;width: 100%;" id="cmblgov" name="cmblgov">
+                                    <select class="form-control js-example-basic-single"  id="cmblgov" name="cmblgov">
                                     </select>
                                 </div>
                         <div class="form-group">
                             <label for="txtcontact">Contact Address: </label>
-                            <textarea rows="6" colunms="12" class="form-control" style="padding: 30px;font-size: 24px;width: 100%;" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
+                            <textarea rows="6" colunms="12" class="form-control" id="txtcontact" name="txtcontact" required="true" placeholder="Enter Contact Address"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="samedetails"></label>
@@ -155,10 +155,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){
                         </div>
                         <div class="form-group">
                             <label for="txtofficeadd">Office Address : </label>
-                            <textarea class="form-control" rows="6" style="padding: 30px;font-size: 24px;width: 100%;" id="txtofficeadd" name="txtofficeadd" required="true" placeholder="Enter Office Address"></textarea>
+                            <textarea class="form-control" rows="6"  name="txtofficeadd" required="true" placeholder="Enter Office Address"></textarea>
                         </div>
                         <div class="form-group">
-                                <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:20px 20px 20px 20px" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
+                                <input type="submit" name="proceed"  style="width:100%" value="CREATE ACCOUNT" class="btn btn-primary btn-lg"></input>
                         </div>
                     </div>
                 </form>

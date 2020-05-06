@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['docID']) || !isset($_SESSION['logName'])){
+    header("location: index.php?out=out");
+}
 require_once 'connection.php';
  $txtname =$txtphone =$txtemail =$txtpregdescription =$cmbstate =$cmblgov =$txtcontact =$txtofficeadd=$notice_msg="";
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['proceed'])){

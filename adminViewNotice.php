@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['docID']) || !isset($_SESSION['logName'])){
+    header("location: index.php?out=out");
+}
     require_once 'connection.php';
     $stmt_ina = $conn->prepare("SELECT * FROM hospitalnotice");
     $stmt_ina->execute(array());

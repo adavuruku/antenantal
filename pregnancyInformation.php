@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['docID']) || !isset($_SESSION['logName'])){
+    header("location: index.php?out=out");
+}
     $notice_msg=$hospitalId = $appid ="";
     require_once 'connection.php';
     if (!isset($_GET['hospitalid']) || $_GET['hospitalid'] == ""){
@@ -33,7 +36,7 @@
         $dateOne = date_format($date500_two,'Y-d-m');
 
         $time500_two = new DateTime($row_two_in['pregExpectedEndDate']);
-        $dateTwo= date_format($date500_two,'d F, Y');
+        $dateTwo= date_format($time500_two,'d F, Y');
 
     }
 
@@ -82,7 +85,7 @@
                         $dateOne = date_format($date500_two,'Y-d-m');
                 
                         $time500_two = new DateTime($txtendDate);
-                        $dateTwo= date_format($date500_two,'d F, Y');
+                        $dateTwo= date_format($time500_two,'d F, Y');
         
                     }else{
                                 $err = $errPL = "Unable to Save Your Application.. Please Verify Your Entries to Ensure they are all Provided !!";
@@ -118,7 +121,7 @@
                             <?php require_once 'nav_left_staff.php'?>
                         </div>
                         <div class="col-xs-12 col-md-8">
-                            <h4 style="margin-bottom:20px;">PATIENT ACCOUNT HOME - CREATE APPOINTMENT.</h4>
+                            <h4 style="margin-bottom:20px;">PATIENT ACCOUNT HOME - UPDATE PREGNANCY DETAILS.</h4>
                             <?php echo $notice_msg;?>
                             <form role="form"  name="reg_form"  id="form" class="form-vertical" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="hospitalid" value="<?php echo $hospitalId; ?>" />
@@ -156,7 +159,7 @@
                                     <textarea rows="5" colunms="12"  class="form-control" id="txtpurpose" name="txtpurpose" placeholder="Enter The Baby Gender Description and Other Information If Availlable"><?php echo $description;?></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:10px 10px 10px 10px" value="CREATE APPOINTMENT" class="btn btn-primary btn-lg"></input>
+                                    <input type="submit" name="proceed" style="width:100%;margin-bottom:10px;padding:10px 10px 10px 10px" value="UPDATE INFORMATION" class="btn btn-primary btn-lg"></input>
                                 </div>
                             </form>
                             

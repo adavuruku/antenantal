@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!isset($_SESSION['docID']) || !isset($_SESSION['logName'])){
+    header("location: index.php?out=out");
+}
     require_once 'connection.php';
     $notice_msg=$hospitalId = $appid ="";
     require_once 'connection.php';

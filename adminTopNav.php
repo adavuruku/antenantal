@@ -1,11 +1,3 @@
-<?php
-    if (isset($_GET['out'])){
-        session_start();
-        unset($_SESSION['regno']);
-        header("location: index.php");
-    }
-    
-?>
 <nav role="navigation"  class="navbar  navbar-fixed-top navbar-inverse">
             <div class="navbar-header">
                 <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -26,7 +18,7 @@
                         <li><a href="adminHome.php">View All Patients</a></li>
                         <li><a href="adminListStaff.php">View All Staff</a></li>
                         <li><a href="adminViewNotice.php">View All Notice</a></li>
-                        <li><a href="?out=out">Sign Out</a></li>
+                        <li><a href="index.php?out=out">Sign Out</a></li>
                 </ul>
                 
             </div>

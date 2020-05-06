@@ -1,10 +1,13 @@
 <?php
     session_start();
+    if(!isset($_SESSION['docID']) || !isset($_SESSION['logName'])){
+    header("location: index.php?out=out");
+}
     $notice_msg=$hospitalId = $appid ="";
     require_once 'connection.php';
     if (!isset($_GET['hospitalid']) || $_GET['hospitalid'] == ""){
         if($_SERVER['REQUEST_METHOD'] != "POST"){
-            header("location: ?out=out");
+            header("location: index.php?out=out");
         }
         
     }else{
@@ -12,7 +15,7 @@
         $stmt_in->execute(array($_GET['hospitalid']));
         $affected_rows_in = $stmt_in->rowCount();
         if($affected_rows_in < 1){
-            header("location: ?out=out");
+            header("location: index.php?out=out");
         }
         $hospitalId = $_GET['hospitalid'];
     }

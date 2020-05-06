@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'antenantalServer';
-$username = 'root';
-$password = '';
+$dbname = 'id13227737_antenatal';
+$username = 'id13227737_sherif';
+$password = 'Jyo8CkCWbT>3H?*K';
 
 try
     {

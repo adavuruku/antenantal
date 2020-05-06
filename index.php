@@ -1,6 +1,9 @@
-
 <?php
 session_start();
+if (isset($_GET['out'])){
+    unset($_SESSION['docID']);
+    unset($_SESSION['logName']);
+}
 require_once 'connection.php';
 $txtreg =$txtemail=$errPL="";
 if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -34,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     <body>
     <script type="text/javascript">
         $(document).ready(function(){
-            // $("#myModal").modal('show');		
+            $("#myModal").modal('show');		
         });
     </script>
 
@@ -43,11 +46,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         <div class="modal-content">
             <div class="modal-header label-primary" >
                 <button type="button" style="color:RED;font-family:comic sans ms;font-size:20px;font-weight:bold" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" style="color:WHITE;font-family:comic sans ms;font-size:25px;font-weight:bold">ABOUT THE PROJECT - ONLINE / MOBILE ANTENANTAL MANAGEMENT SYSTEM</h4>
+                <h4 class="modal-title" style="color:WHITE;font-family:comic sans ms;font-size:25px;font-weight:bold">ABOUT THE PROJECT - ONLINE / MOBILE ANTENATAL MANAGEMENT SYSTEM</h4>
             </div>
             <div class="modal-body" style="font-family:comic sans ms;font-size:15px;font-weight:bold">
                 <p>Afe Babalola University, Ekiti - Ekiti State Nigeria.</p>
-				<p>The Project Online / Mobile Antenantal Management System. is Design By :</p>
+				<p>The Project Online / Mobile Antenatal Management System. is Design By :</p>
 				<p> Allison Tebrimam Magaji- Registration N<u>o</u> : 16/sci01/024 .</p>
 				<br>
 				<p >For the Partial Fulfillment of the requirement for the Award of Bachelor Of Science (BSc) in Computer Science - Afe Babalola University, Ekiti - Ekiti State Nigeria - 2020</p><br>
@@ -61,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     </div>
 </div>
         <nav role="navigation"  class="navbar  navbar-fixed-top navbar-inverse">
-            <h2 style="text-align: center;color:white">ANTENANTAL INFORMATION MANAGEMENT SYSTEM</h2>
+            <h2 style="text-align: center;color:white">ANTENATAL INFORMATION MANAGEMENT SYSTEM</h2>
         </nav>
         <div class="container">
             <div class="login">

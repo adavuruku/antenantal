@@ -1,13 +1,11 @@
 <?php
  require_once 'connection.php';
-//  $opr = urldecode($_POST['opr']);
- $opr = "loadContacts";
+ $opr = urldecode($_POST['opr']);
  $err=null;
- 
  $two = $one =$outResponse= array();
  if ($opr == "login"){
-    //  $userID = urldecode($_POST['userID']);
-    $userID = "ABUTH42639249";
+     $userID = urldecode($_POST['userID']);
+    // $userID = "ABUTH25415016";
     $row_one =$row_two ="";
      $stmt_inAll = $conn->prepare("SELECT * from users  where HID=? Limit 1");
      $stmt_inAll->execute(array($userID));
@@ -31,8 +29,7 @@
      $outResponse =  json_encode($outResponse);
      print $outResponse;           
  }
-
-
+ 
  if ($opr == "loadnews"){
     $outResponse = $one = array();
     $stmt_inAll = $conn->prepare("SELECT *,hospitalnotice.id as noticeid, hospitaldocsinfo.docname as author, hospitaldocsinfo.docId from hospitalnotice
@@ -71,13 +68,11 @@
     print json_encode($outResponse);
 }
 
-
 if ($opr == "loadDoctors"){
-    $userID = "ABUTH42639249";
-    // $userID = urldecode($_POST['userID']);
+    // $userID = "ABUTH42639249";
+    $userID = urldecode($_POST['userID']);
     $outResponse = $one = array();
-    $stmt_in = $conn->prepare("SELECT *, userdoctorinfo.id as recId FROM userdoctorinfo INNER JOIN hospitaldocsinfo
-                                            ON userdoctorinfo.docid = hospitaldocsinfo.docId where userdoctorinfo.HID = ? ORDER BY userdoctorinfo.id DESC ");                 
+    $stmt_in = $conn->prepare("SELECT *, userdoctorinfo.id as recId FROM userdoctorinfo INNER JOIN hospitaldocsinfo ON userdoctorinfo.docid = hospitaldocsinfo.docId where userdoctorinfo.HID = ? ORDER BY userdoctorinfo.id DESC ");                 
     $stmt_in->execute(array($userID));
     $affected_rows_in = $stmt_in->rowCount();
     if($affected_rows_in >= 1)
@@ -91,8 +86,8 @@ if ($opr == "loadDoctors"){
 }
 
 if ($opr == "loadContacts"){
-    $userID = "ABUTH42639249";
-    // $userID = urldecode($_POST['userID']);
+    // $userID = "ABUTH42639249";
+    $userID = urldecode($_POST['userID']);
     $outResponse = $one = array();
     $stmt_in = $conn->prepare("SELECT * FROM contactinfo where HID = ? ORDER BY id DESC");
     $stmt_in->execute(array($userID));
@@ -103,6 +98,23 @@ if ($opr == "loadContacts"){
             array_push($outResponse,$row_two);
         }
         
+    }
+    print json_encode($outResponse);
+}
+
+if ($opr == "loadAppointments"){
+    // $userID = "ABUTH42639249";
+    $userID = urldecode($_POST['userID']);
+    $outResponse = $one = array();
+    $stmt_in = $conn->prepare("SELECT *, userschedule.id as recid, userschedule.dateReg as dateScheduleReg, hospitaldocsinfo.docId, hospitaldocsinfo.docname FROM userschedule INNER JOIN hospitaldocsinfo 
+    ON userschedule.docid = hospitaldocsinfo.docId where userschedule.HID = ?  ORDER BY userschedule.id DESC");
+    $stmt_in->execute(array($userID));
+    $affected_rows_in = $stmt_in->rowCount();
+    if($affected_rows_in >= 1)
+    {
+        while($row_two = $stmt_in->fetch(PDO::FETCH_ASSOC)){
+            array_push($outResponse,$row_two);
+        }
     }
     print json_encode($outResponse);
 }
